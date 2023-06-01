@@ -12,16 +12,16 @@ inputs:
   version:
     required: true
   environment:
-    required: true
+    required: false
   platform:
     required: true
     default: github
   description:
     required: false
   repository_owner:
-    required: true
+    required: false
   repository_name:
-    required: true
+    required: false
 runs:
   using: 'node16'
   main: 'dist/index.js'
