@@ -52,20 +52,25 @@ const repository_name = core.getInput('repository_name', { required: false });
 const platform = 'github';
 const createDeployment = () => __awaiter(void 0, void 0, void 0, function* () {
     const client = new http.HttpClient();
-    const url = `http://localhost:3001/v1/organizations/${organization}/services/${service}/deployments`;
+    const url = `http://api.beta.waroom.com/v1/organizations/${organization}/services/${service}/deployments`;
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${integrationToken}`
+        Authorization: `Bearer ${integrationToken}`
     };
     const body = {
-        ref: version, repository_owner, repository_name, platform, environment, description
+        ref: version,
+        repository_owner,
+        repository_name,
+        platform,
+        environment,
+        description
     };
     const response = yield client.postJson(url, body, headers);
     const code = response.statusCode;
-    if (code == 401) {
+    if (code === 401) {
         throw new Error('Deployment Integration Key is Invalid');
     }
-    if (code != 200) {
+    if (code !== 200) {
         throw new Error();
     }
     core.info('Completion of Waroom Deployment Data Creation');
